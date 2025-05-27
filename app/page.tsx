@@ -29,6 +29,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Image from "next/image";
 
 const ARS_CONVERSION = 1000; // 1 USD ≈ 1000 ARS (ajusta según cotización real)
 
@@ -271,10 +280,27 @@ interface MenuItem {
   prepTime: string;
 }
 
+// Tipos para el carrito
+interface CartItem {
+  id: number;
+  name: string;
+  type: "simple" | "doble" | "triple";
+  quantity: number;
+  price: number;
+}
+
 export default function MobileFriendlyBurgerMenu() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [showCart, setShowCart] = useState(false);
+
+  // Estado para los selectores de tipo y cantidad
+  const [selectedType, setSelectedType] = useState<{
+    [id: number]: "simple" | "doble" | "triple";
+  }>({});
+  const [selectedQty, setSelectedQty] = useState<{ [id: number]: number }>({});
 
   useEffect(() => {
     setIsVisible(true);
@@ -305,6 +331,63 @@ export default function MobileFriendlyBurgerMenu() {
     );
   };
 
+  // Añadir al carrito
+  const addToCart = (
+    item: MenuItem,
+    type: "simple" | "doble" | "triple",
+    quantity: number
+  ) => {
+    setCart((prev) => {
+      const existing = prev.find((i) => i.id === item.id && i.type === type);
+      if (existing) {
+        return prev.map((i) =>
+          i.id === item.id && i.type === type
+            ? { ...i, quantity: i.quantity + quantity }
+            : i
+        );
+      }
+      return [
+        ...prev,
+        {
+          id: item.id,
+          name: item.name,
+          type,
+          quantity,
+          price:
+            type === "doble"
+              ? item.price * 1.7
+              : type === "triple"
+              ? item.price * 2.3
+              : item.price,
+        },
+      ];
+    });
+    setShowCart(true);
+  };
+
+  // Eliminar del carrito
+  const removeFromCart = (id: number, type: "simple" | "doble" | "triple") => {
+    setCart((prev) => prev.filter((i) => !(i.id === id && i.type === type)));
+  };
+
+  // Enviar pedido por WhatsApp
+  const sendCartToWhatsApp = () => {
+    if (cart.length === 0) return;
+    let message = "¡Hola! Me gustaría pedir:\n\n";
+    cart.forEach((item) => {
+      message +=
+        `🍔 ${item.name} (${item.type}) x${item.quantity} - $${(
+          item.price * item.quantity
+        ).toLocaleString("es-AR")}` + "\n";
+    });
+    const total = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
+    message += `\nTotal: $${total.toLocaleString("es-AR")}`;
+    window.open(
+      `https://wa.me/1234567890?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
+
   return (
     <div
       className={`min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 transition-opacity duration-500 ${
@@ -327,25 +410,27 @@ export default function MobileFriendlyBurgerMenu() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {/* Logo mejorado */}
-              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-400 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-white/20 backdrop-blur-sm">
-                <span className="text-red-600 text-xl">🍔</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-400 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-white/20 backdrop-blur-sm overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               {/* Título con efecto neón mejorado */}
               <div className="text-shadow-lg">
                 <h1 className="text-3xl font-extrabold text-white drop-shadow-xl">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-yellow-400">
-                    BURGER
+                    Mr. Roky
                   </span>
-                  <span className="text-white"> HOUSE</span>
+                  <span className="text-white"> burger shop</span>
                 </h1>
                 <p className="text-orange-100 text-xs font-medium tracking-wider">
                   ~ SABORES QUE INSPIRAN ~
                 </p>
               </div>
             </div>
-
-            
           </div>
         </div>
       </header>
@@ -353,6 +438,17 @@ export default function MobileFriendlyBurgerMenu() {
       {/* Hero Section - Gradiente dinámico con efecto de profundidad */}
       {/* Hero Section Compacto */}
       <section className="relative min-h-[300px] flex items-center justify-center text-white bg-gradient-to-br from-red-800 via-red-700 to-orange-700">
+        {/* Fondo visual con foto.jpg */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <img
+            src="/foto.jpg"
+            alt="Mr. Roky burger shop hero"
+            className="w-full h-full object-cover object-center"
+            style={{ filter: "brightness(0.7) blur(1px)" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-orange-700/30"></div>
+        </div>
+
         {/* Efectos de fondo sutiles */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-r from-amber-500/10 to-transparent rounded-full filter blur-xl"></div>
@@ -362,6 +458,14 @@ export default function MobileFriendlyBurgerMenu() {
         {/* Contenido principal compacto */}
         <div className="container mx-auto px-4 text-center relative z-10 py-8">
           <div className="max-w-2xl mx-auto">
+            {/* Logo tipo sticker destacado */}
+            <img
+              src="/foto.jpg"
+              alt="Logo Mr. Roky burger shop"
+              className="mx-auto mb-6 w-40 h-40 object-contain drop-shadow-2xl rounded-2xl bg-white/80 p-2"
+              style={{ boxShadow: "0 8px 32px 0 rgba(0,0,0,0.25)" }}
+            />
+
             {/* Título más compacto */}
             <h2 className="text-3xl md:text-4xl font-bold mb-3 leading-tight">
               <span className="bg-gradient-to-r from-amber-300 to-yellow-400 bg-clip-text text-transparent">
@@ -417,54 +521,56 @@ export default function MobileFriendlyBurgerMenu() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {category.items.map((item) => (
                 <Card
-                  key={item.id}
+                  key={item.id + "-" + category.id}
                   className="group flex flex-col h-full overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 bg-white/95 backdrop-blur-sm cursor-pointer rounded-xl shadow-md hover:ring-2 hover:ring-orange-200/50"
                   onClick={() => openItemDetail(item)}
                 >
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={item.image || "/placeholder.svg"}
-                      alt={item.name}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-xl"
-                    />
-                    {/* Overlay para destacar texto */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
-
-                    {/* Precio con fondo vibrante */}
-                    <div className="absolute top-3 right-3">
-                      <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg border-2 border-white/30">
-                        {item.price.toLocaleString("es-AR", {
-                          style: "currency",
-                          currency: "ARS",
-                          maximumFractionDigits: 0,
-                        })}
+                  <div className="relative overflow-hidden rounded-xl group border border-orange-100 bg-white/90 shadow-md hover:shadow-xl transition-all duration-300 hover:ring-2 hover:ring-orange-200/50">
+                    <div className="relative w-full h-48">
+                      <Image
+                        src={item.image || "/placeholder.svg"}
+                        alt={item.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover rounded-t-xl group-hover:scale-105 transition-transform duration-500"
+                        priority={category.items[0].id === item.id}
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute top-3 right-3">
+                        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg border-2 border-white/30">
+                          {item.price.toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                            maximumFractionDigits: 0,
+                          })}
+                        </div>
                       </div>
                     </div>
+                    <div className="flex flex-col flex-1 p-4 gap-2">
+                      <CardHeader className="p-0 pb-2 flex-1">
+                        <CardTitle className="text-lg font-bold text-gray-800 leading-tight mb-1 truncate group-hover:text-orange-600 transition-colors">
+                          {item.name}
+                        </CardTitle>
+                        <CardDescription className="text-xs text-gray-600 leading-tight mt-1 truncate">
+                          {item.ingredients.join(", ")}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="p-0 mt-auto">
+                        <Button
+                          size="sm"
+                          className="w-full bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold text-sm py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 scale-100 hover:scale-105"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openItemDetail(item);
+                          }}
+                        >
+                          <Plus className="w-4 h-4 mr-1" />
+                          Ver Detalle
+                        </Button>
+                      </CardContent>
+                    </div>
                   </div>
-
-                  <div className="flex flex-col flex-1 p-4">
-                    <CardHeader className="p-0 pb-3 flex-1">
-                      <CardTitle className="text-lg font-bold text-gray-800 leading-tight mb-1">
-                        {item.name}
-                      </CardTitle>
-                      <CardDescription className="text-sm text-gray-600 leading-tight line-clamp-2">
-                        {item.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-0 mt-auto">
-                      <Button
-                        size="sm"
-                        className="w-full bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold text-sm py-2 rounded-lg shadow-md hover:shadow-lg transition-all"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openItemDetail(item);
-                        }}
-                      >
-                        <Plus className="w-4 h-4 mr-1" />
-                        Ver Detalle
-                      </Button>
-                    </CardContent>
-                  </div>
+                  {/* Selector de cantidad y tipo eliminado del Card */}
                 </Card>
               ))}
             </div>
@@ -507,9 +613,6 @@ export default function MobileFriendlyBurgerMenu() {
                   <DialogTitle className="text-2xl font-bold text-gray-800 pr-8">
                     {selectedItem.name}
                   </DialogTitle>
-                  <p className="text-orange-600 font-medium">
-                    {selectedItem.description}
-                  </p>
                 </DialogHeader>
 
                 {/* Descripción completa */}
@@ -521,22 +624,6 @@ export default function MobileFriendlyBurgerMenu() {
                   <p className="text-gray-700 leading-relaxed">
                     {selectedItem.fullDescription}
                   </p>
-                </div>
-
-                {/* Información nutricional y tiempo */}
-                <div className="grid grid-cols-2 gap-4 bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-lg border border-orange-100">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-500 mb-1">Calorías</p>
-                    <p className="font-bold text-gray-800 text-lg">
-                      {selectedItem.calories} kcal
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-sm text-gray-500 mb-1">Tiempo prep.</p>
-                    <p className="font-bold text-gray-800 text-lg">
-                      {selectedItem.prepTime}
-                    </p>
-                  </div>
                 </div>
 
                 {/* Ingredientes */}
@@ -559,8 +646,81 @@ export default function MobileFriendlyBurgerMenu() {
                   </div>
                 </div>
 
-                {/* Botón de pedido */}
-                <div className="pt-4">
+                {/* Selector de tipo y cantidad SOLO en el modal */}
+                <div className="flex items-center gap-2 mt-2 px-2 pb-2 bg-orange-50/60 rounded-lg shadow-inner border border-orange-100">
+                  <Label
+                    htmlFor={`modal-type-${selectedItem.id}`}
+                    className="text-xs text-gray-600 font-semibold mr-1"
+                  >
+                    Tipo:
+                  </Label>
+                  <Select
+                    value={selectedType[selectedItem.id] || "simple"}
+                    onValueChange={(value) =>
+                      setSelectedType({
+                        ...selectedType,
+                        [selectedItem.id]: value as "simple" | "doble" | "triple",
+                      })
+                    }
+                  >
+                    <SelectTrigger
+                      id={`modal-type-${selectedItem.id}`}
+                      className="w-24 h-8 text-sm font-semibold bg-white border-orange-200 focus:ring-orange-400 focus:border-orange-400"
+                    >
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="simple">Simple</SelectItem>
+                      <SelectItem value="doble">Doble</SelectItem>
+                      <SelectItem value="triple">Triple</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Label className="text-xs text-gray-600 font-semibold ml-2">
+                    Cantidad:
+                  </Label>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="w-7 h-7 rounded-full border-orange-200 text-orange-700 font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed bg-white hover:bg-orange-100"
+                    onClick={() =>
+                      setSelectedQty({
+                        ...selectedQty,
+                        [selectedItem.id]: Math.max(
+                          1,
+                          (selectedQty[selectedItem.id] || 1) - 1
+                        ),
+                      })
+                    }
+                    disabled={(selectedQty[selectedItem.id] || 1) <= 1}
+                    tabIndex={-1}
+                    type="button"
+                    aria-label="Restar cantidad"
+                  >
+                    –
+                  </Button>
+                  <span className="w-6 text-center font-bold text-orange-700 select-none">
+                    {selectedQty[selectedItem.id] || 1}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="w-7 h-7 rounded-full border-orange-200 text-orange-700 font-bold text-lg bg-white hover:bg-orange-100"
+                    onClick={() =>
+                      setSelectedQty({
+                        ...selectedQty,
+                        [selectedItem.id]: (selectedQty[selectedItem.id] || 1) + 1,
+                      })
+                    }
+                    tabIndex={-1}
+                    type="button"
+                    aria-label="Sumar cantidad"
+                  >
+                    +
+                  </Button>
+                </div>
+
+                {/* Botón de pedido y agregar al carrito */}
+                <div className="pt-4 flex flex-col gap-2">
                   <Button
                     className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-all hover:shadow-xl hover:scale-[1.02]"
                     onClick={() => orderViaWhatsApp(selectedItem)}
@@ -574,6 +734,20 @@ export default function MobileFriendlyBurgerMenu() {
                         maximumFractionDigits: 0,
                       }
                     )}`}
+                  </Button>
+                  <Button
+                    className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-3 rounded-lg shadow-lg transition-all duration-200 scale-100 hover:scale-105 flex items-center gap-2 text-base"
+                    onClick={() => {
+                      addToCart(
+                        selectedItem,
+                        selectedType[selectedItem.id] || "simple",
+                        selectedQty[selectedItem.id] || 1
+                      );
+                      setShowCart(true);
+                      setIsModalOpen(false);
+                    }}
+                  >
+                    <Plus className="w-4 h-4" /> Agregar al carrito
                   </Button>
                 </div>
               </div>
@@ -623,34 +797,27 @@ export default function MobileFriendlyBurgerMenu() {
                 </div>
                 <div>
                   <h3 className="font-bold text-white text-lg mb-1">
-                    Teléfono
+                    Contáctanos
                   </h3>
                   <p className="text-gray-300">+1 234 567 8900</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl h-64 lg:h-80 flex items-center justify-center border border-white/10 hover:border-orange-400/30 transition-all">
-              <div className="text-center text-white p-6">
-                <div className="bg-orange-500/20 p-4 rounded-full inline-block mb-4">
-                  <MapPin className="w-8 h-8 text-orange-400" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">
-                  Encuéntranos Fácilmente
-                </h3>
-                <p className="text-gray-300 mb-4">
-                  Estamos en el corazón de la ciudad
-                </p>
-                <Button
-                  variant="outline"
-                  className="border-orange-400 text-orange-400 hover:bg-orange-500/10 hover:text-orange-300"
-                  onClick={() =>
-                    window.open("https://maps.google.com", "_blank")
-                  }
-                >
-                  Ver en Google Maps
-                </Button>
-              </div>
+            <div className="flex flex-col bg-white/5 backdrop-blur-sm p-5 rounded-xl border border-white/10">
+              <h3 className="font-bold text-lg text-center text-white mb-4">
+                Encuéntranos Fácilmente
+              </h3>
+              <p className="text-gray-300 mb-4">
+                Estamos en el corazón de la ciudad
+              </p>
+              <Button
+                variant="outline"
+                className="border-orange-400 text-orange-400 hover:bg-orange-500/10 hover:text-orange-300"
+                onClick={() => window.open("https://maps.google.com", "_blank")}
+              >
+                Ver en Google Maps
+              </Button>
             </div>
           </div>
         </div>
@@ -665,7 +832,7 @@ export default function MobileFriendlyBurgerMenu() {
                 <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-400 rounded-lg flex items-center justify-center shadow-lg">
                   <span className="text-red-600 font-bold text-xl">🍔</span>
                 </div>
-                <span className="text-xl font-bold">Burger House</span>
+                <span className="text-xl font-bold">Mr. Roky burger shop</span>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Las mejores hamburguesas artesanales con ingredientes frescos y
@@ -753,6 +920,57 @@ export default function MobileFriendlyBurgerMenu() {
       >
         <MessageCircle className="w-7 h-7" />
       </Button>
+
+      {/* Mini carrito flotante mejorado con shadcn/ui */}
+      {showCart && cart.length > 0 && (
+        <div className="fixed bottom-24 right-6 z-50 bg-white rounded-xl shadow-2xl p-4 w-80 border border-orange-200 animate-fade-in">
+          <h4 className="font-bold text-lg mb-2 text-orange-600 flex items-center gap-2">
+            <span>🛒</span> Tu pedido
+          </h4>
+          <ul className="mb-2 max-h-40 overflow-y-auto divide-y divide-orange-100">
+            {cart.map((item, idx) => (
+              <li
+                key={item.id + "-" + item.type}
+                className="flex justify-between items-center py-1 text-sm"
+              >
+                <span className="flex-1">
+                  {item.name}{" "}
+                  <span className="text-xs text-gray-400">({item.type})</span> x
+                  {item.quantity}
+                </span>
+                <span className="font-bold text-orange-600">
+                  ${(item.price * item.quantity).toLocaleString("es-AR")}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="ml-2 text-red-500 hover:text-red-700 rounded-full p-1 transition"
+                  title="Quitar"
+                  onClick={() => removeFromCart(item.id, item.type)}
+                  type="button"
+                >
+                  <span className="text-lg">×</span>
+                </Button>
+              </li>
+            ))}
+          </ul>
+          <div className="flex justify-between items-center font-bold mb-2 text-base">
+            <span>Total:</span>
+            <span className="text-green-600">
+              $
+              {cart
+                .reduce((acc, i) => acc + i.price * i.quantity, 0)
+                .toLocaleString("es-AR")}
+            </span>
+          </div>
+          <Button
+            className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-3 rounded-lg shadow-lg transition-all duration-200 scale-100 hover:scale-105 flex items-center gap-2 text-base"
+            onClick={sendCartToWhatsApp}
+          >
+            <MessageCircle className="w-5 h-5" /> Enviar pedido por WhatsApp
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
