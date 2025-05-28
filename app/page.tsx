@@ -261,7 +261,7 @@ const menuCategories = [
   },
   {
     id: "pachata",
-    name: "Pachata",
+    name: "Pachatas",
     icon: "🥖",
     items: [
       {
@@ -417,7 +417,7 @@ export default function MobileFriendlyBurgerMenu() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 transition-opacity duration-500 ${
+      className={`min-h-screen bg-gradient-to-br bg-gray-50 transition-opacity duration-500 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
