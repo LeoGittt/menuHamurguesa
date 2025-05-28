@@ -526,7 +526,7 @@ export default function MobileFriendlyBurgerMenu() {
                       }}
                     >
                       <ShoppingBag className="w-4 h-4" />
-                      ¡LO QUIERO!
+                      ¡PEDIR!
                     </button>
                   </div>
                 </div>
