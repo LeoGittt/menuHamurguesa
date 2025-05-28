@@ -39,7 +39,6 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 
-
 const menuCategories = [
   {
     id: "hamburguesas",
@@ -49,12 +48,18 @@ const menuCategories = [
       {
         id: 1,
         name: "Bacon Cheeseburger",
-        description: "Cheddar x2, medallón y panceta ahumada. ¡Incluye papas Mc Cain en el precio!",
+        description:
+          "Cheddar x2, medallón y panceta ahumada. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Hamburguesa con doble cheddar, medallón de carne y panceta ahumada. Una combinación clásica e irresistible. ¡Incluye papas Mc Cain en el precio!",
         price: 8600,
         image: "/hamburguesas/1.jpg",
-        ingredients: ["Cheddar x2", "Medallón", "Panceta ahumada", "Papas Mc Cain incluidas"],
+        ingredients: [
+          "Cheddar x2",
+          "Medallón",
+          "Panceta ahumada",
+          "Papas Mc Cain incluidas",
+        ],
         calories: 650,
         prepTime: "12-15 min",
         popular: true,
@@ -63,12 +68,19 @@ const menuCategories = [
       {
         id: 2,
         name: "American Cheese Burger",
-        description: "Tomate, cheddar, lechuga y salsa tosty casera. ¡Incluye papas Mc Cain en el precio!",
+        description:
+          "Tomate, cheddar, lechuga y salsa tosty casera. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Una hamburguesa con sabor americano: tomate fresco, cheddar fundido, lechuga crocante y nuestra salsa tosty casera. ¡Incluye papas Mc Cain en el precio!",
         price: 8400,
         image: "/hamburguesas/2.jpg",
-        ingredients: ["Tomate", "Cheddar", "Lechuga", "Salsa tosty casera", "Papas Mc Cain incluidas"],
+        ingredients: [
+          "Tomate",
+          "Cheddar",
+          "Lechuga",
+          "Salsa tosty casera",
+          "Papas Mc Cain incluidas",
+        ],
         calories: 620,
         prepTime: "12-15 min",
         popular: false,
@@ -90,7 +102,7 @@ const menuCategories = [
           "Lechuga",
           "Cebolla",
           "Salsa HR",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 780,
         prepTime: "15-18 min",
@@ -100,12 +112,18 @@ const menuCategories = [
       {
         id: 4,
         name: "Fried Egg",
-        description: "Cheddar x2, medallón y huevo frito. ¡Incluye papas Mc Cain en el precio!",
+        description:
+          "Cheddar x2, medallón y huevo frito. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Una deliciosa combinación de medallón de carne, cheddar doble y un huevo frito con yema cremosa. ¡Incluye papas Mc Cain en el precio!",
         price: 8200,
         image: "/hamburguesas/44.jpg",
-        ingredients: ["Cheddar x2", "Medallón", "Huevo frito", "Papas Mc Cain incluidas"],
+        ingredients: [
+          "Cheddar x2",
+          "Medallón",
+          "Huevo frito",
+          "Papas Mc Cain incluidas",
+        ],
         calories: 670,
         prepTime: "12-14 min",
         popular: false,
@@ -126,7 +144,7 @@ const menuCategories = [
           "Cebolla a la plancha",
           "Kétchup",
           "Mostaza",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 610,
         prepTime: "12-15 min",
@@ -136,7 +154,8 @@ const menuCategories = [
       {
         id: 6,
         name: "Crispy Burger",
-        description: "Medallón, cheddar x2, lechuga, tomate y cebolla crispy. ¡Incluye papas Mc Cain en el precio!",
+        description:
+          "Medallón, cheddar x2, lechuga, tomate y cebolla crispy. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Hamburguesa con medallón jugoso, doble cheddar, vegetales frescos y cebolla crispy para un toque crujiente. ¡Incluye papas Mc Cain en el precio!",
         price: 7900,
@@ -147,7 +166,7 @@ const menuCategories = [
           "Lechuga",
           "Tomate",
           "Cebolla crispy",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 690,
         prepTime: "14-16 min",
@@ -169,7 +188,7 @@ const menuCategories = [
           "Panceta caramelizada",
           "Pan con manteca",
           "Miel",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 730,
         prepTime: "15-17 min",
@@ -192,7 +211,7 @@ const menuCategories = [
           "Panceta",
           "Huevo frito",
           "Chimichurri casero",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 950,
         prepTime: "18-22 min",
@@ -222,7 +241,7 @@ const menuCategories = [
           "Jamón",
           "Queso",
           "Mayonesa casera",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 780,
         prepTime: "15-18 min",
@@ -247,7 +266,7 @@ const menuCategories = [
           "Panceta",
           "Huevo a la plancha",
           "Mayonesa casera",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 890,
         prepTime: "16-20 min",
@@ -278,7 +297,7 @@ const menuCategories = [
           "Jamón",
           "Queso",
           "Mayonesa casera",
-          "Papas Mc Cain incluidas"
+          "Papas Mc Cain incluidas",
         ],
         calories: 920,
         prepTime: "16-20 min",
@@ -420,40 +439,49 @@ export default function MobileFriendlyBurgerMenu() {
       }`}
     >
       {/* Header - Más elegante con sombras sutiles */}
-      <header className="sticky top-0 z-40 shadow-lg backdrop-blur-md bg-black/50">
-        {/* Imagen de fondo optimizada para móvil */}
+      <header className="sticky top-0 z-40 shadow-lg bg-black/30 backdrop-blur-md py-3">
+        {/* Fondo con patrón de logos más visible */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <img
-            src="/j.jpg"
-            alt="Hamburguesas artesanales"
-            className="w-full h-full object-cover object-center brightness-95"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-red-900/80 to-orange-700/70"></div>
+          <div className="relative w-full h-full">
+            <div
+              className="absolute inset-0 bg-[url('/logo.png')] bg-[length:180px_180px] bg-center opacity-30"
+              style={{
+                filter: "blur(2px) brightness(1.1)",
+                maskImage:
+                  "linear-gradient(to bottom, transparent 5%, black 20%, black 80%, transparent 95%)",
+              }}
+            ></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60"></div>
+          </div>
         </div>
 
-        <div className="container mx-auto px-3 py-2">
+        <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
-            {/* Logo compacto */}
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 flex items-center justify-center rounded-lg">
-                <img
-                  src="/logo.png"
-                  alt="Logo Mr. Roky"
-                  className="w-8 h-8 object-contain drop-shadow-md"
-                />
+            {/* Logo principal */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                {/* Contenedor principal del logo */}
+                <div className="flex items-center justify-center rounded-xl overflow-hidden w-24 h-24 md:w-28 md:h-28">
+                  {/* Logo con efectos de iluminación */}
+                  <img
+                    src="/logo.png"
+                    alt="Logo Mr. Roky"
+                    className="w-20 h-20 md:w-24 md:h-24 object-contain drop-shadow-[0_4px_15px_rgba(250,180,50,0.6)]"
+                  />
+                </div>
               </div>
 
-              {/* Título optimizado para móvil */}
-              <div>
-                <h1 className="text-xl font-bold text-white">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-yellow-300">
-                    Mr. Roky Burger Shop
-                  </span>
+              {/* Texto */}
+              <div className="text-center">
+                <h1 className="text-2xl md:text-3xl text-white font-sansita tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                  MR. ROKY
                 </h1>
-                <p className="text-orange-50 text-[0.65rem] font-medium tracking-wider mt-0.5">
-                  ✦ And more ✦
-                </p>
+                <div className="relative inline-block">
+                  <p className="text-amber-100 text-sm md:text-base tracking-[0.25em] mt-1 font-sansita uppercase">
+                    BURGER SHOP
+                  </p>
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -467,7 +495,7 @@ export default function MobileFriendlyBurgerMenu() {
             {/* Encabezado de categoría - Centrado y consistente */}
             <div className="text-center mb-6">
               <div className="inline-block transform skew-x-[-12deg] bg-red-600 px-6 py-1 rounded-sm mb-2">
-                <h2 className="text-3xl font-black text-white font-['Impact'] tracking-tighter transform skew-x-[12deg]">
+                <h2 className="text-3xl font-black text-white font-sansita tracking-tighter transform skew-x-[12deg]">
                   {category.name.toUpperCase()}
                 </h2>
               </div>
@@ -574,7 +602,7 @@ export default function MobileFriendlyBurgerMenu() {
               <div className="p-4 flex-1 overflow-y-auto space-y-4">
                 <div className="text-center">
                   <DialogTitle asChild>
-                    <h2 className="text-lg font-bold text-gray-900">
+                    <h2 className="text-lg font-bold text-gray-900 font-sansita">
                       {selectedItem.name}
                     </h2>
                   </DialogTitle>
@@ -585,7 +613,7 @@ export default function MobileFriendlyBurgerMenu() {
 
                 {/* Ingredientes */}
                 <div>
-                  <h3 className="text-xs font-medium text-gray-500 mb-2">
+                  <h3 className="text-xs font-medium text-gray-500 mb-2 font-sansita">
                     Ingredientes
                   </h3>
                   <div className="flex flex-wrap gap-1.5">
@@ -603,7 +631,7 @@ export default function MobileFriendlyBurgerMenu() {
                 {/* Selectores */}
                 <div className="space-y-3">
                   <div>
-                    <h3 className="text-xs font-medium text-gray-500 mb-1.5">
+                    <h3 className="text-xs font-medium text-gray-500 mb-1.5 font-sansita">
                       Tipo
                     </h3>
                     <div className="grid grid-cols-3 gap-2">
@@ -656,7 +684,7 @@ export default function MobileFriendlyBurgerMenu() {
                   </div>
 
                   <div>
-                    <h3 className="text-xs font-medium text-gray-500 mb-1.5">
+                    <h3 className="text-xs font-medium text-gray-500 mb-1.5 font-sansita">
                       Cantidad
                     </h3>
                     <div className="flex items-center justify-between bg-gray-100 rounded-md p-0.5">
@@ -836,10 +864,14 @@ export default function MobileFriendlyBurgerMenu() {
           title="Mostrar carrito"
         >
           <ShoppingCart className="w-5 h-5" />
-          <span>{cart.reduce((total, item) => total + item.quantity, 0)} items</span>
+          <span>
+            {cart.reduce((total, item) => total + item.quantity, 0)} items
+          </span>
           <span className="font-mono">
             $
-            {cart.reduce((acc, i) => acc + i.price * i.quantity, 0).toLocaleString("es-AR")}
+            {cart
+              .reduce((acc, i) => acc + i.price * i.quantity, 0)
+              .toLocaleString("es-AR")}
           </span>
           <Plus className="w-4 h-4" />
         </button>

@@ -12,6 +12,16 @@ body {
   }
 }
 
+
+/* En tu archivo globals.css */
+@font-face {
+  font-family: 'Ni Sans Swashes Black';
+  src: url('/fonts/NiSansSwashes-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
