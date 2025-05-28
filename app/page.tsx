@@ -37,18 +37,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
-const ARS_CONVERSION = 1000; // 1 USD ≈ 1000 ARS (ajusta según cotización real)
 
 const menuCategories = [
   {
@@ -59,12 +49,12 @@ const menuCategories = [
       {
         id: 1,
         name: "Bacon Cheeseburger",
-        description: "Cheddar x2, medallón y panceta ahumada.",
+        description: "Cheddar x2, medallón y panceta ahumada. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Hamburguesa con doble cheddar, medallón de carne y panceta ahumada. Una combinación clásica e irresistible.",
+          "Hamburguesa con doble cheddar, medallón de carne y panceta ahumada. Una combinación clásica e irresistible. ¡Incluye papas Mc Cain en el precio!",
         price: 8600,
         image: "/hamburguesas/1.jpg",
-        ingredients: ["Cheddar x2", "Medallón", "Panceta ahumada"],
+        ingredients: ["Cheddar x2", "Medallón", "Panceta ahumada", "Papas Mc Cain incluidas"],
         calories: 650,
         prepTime: "12-15 min",
         popular: true,
@@ -73,12 +63,12 @@ const menuCategories = [
       {
         id: 2,
         name: "American Cheese Burger",
-        description: "Tomate, cheddar, lechuga y salsa tosty casera.",
+        description: "Tomate, cheddar, lechuga y salsa tosty casera. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Una hamburguesa con sabor americano: tomate fresco, cheddar fundido, lechuga crocante y nuestra salsa tosty casera.",
+          "Una hamburguesa con sabor americano: tomate fresco, cheddar fundido, lechuga crocante y nuestra salsa tosty casera. ¡Incluye papas Mc Cain en el precio!",
         price: 8400,
         image: "/hamburguesas/2.jpg",
-        ingredients: ["Tomate", "Cheddar", "Lechuga", "Salsa tosty casera"],
+        ingredients: ["Tomate", "Cheddar", "Lechuga", "Salsa tosty casera", "Papas Mc Cain incluidas"],
         calories: 620,
         prepTime: "12-15 min",
         popular: false,
@@ -88,9 +78,9 @@ const menuCategories = [
         id: 3,
         name: "Big Roky",
         description:
-          "Doble carne, cheddar x3, pepinillos, lechuga, cebolla y salsa HR.",
+          "Doble carne, cheddar x3, pepinillos, lechuga, cebolla y salsa HR. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Potente hamburguesa con doble medallón, triple cheddar, pepinillos caseros, lechuga, cebolla salteada y salsa HR casera.",
+          "Potente hamburguesa con doble medallón, triple cheddar, pepinillos caseros, lechuga, cebolla salteada y salsa HR casera. ¡Incluye papas Mc Cain en el precio!",
         price: 9200,
         image: "/hamburguesas/3.jpg",
         ingredients: [
@@ -100,6 +90,7 @@ const menuCategories = [
           "Lechuga",
           "Cebolla",
           "Salsa HR",
+          "Papas Mc Cain incluidas"
         ],
         calories: 780,
         prepTime: "15-18 min",
@@ -109,12 +100,12 @@ const menuCategories = [
       {
         id: 4,
         name: "Fried Egg",
-        description: "Cheddar x2, medallón y huevo frito.",
+        description: "Cheddar x2, medallón y huevo frito. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Una deliciosa combinación de medallón de carne, cheddar doble y un huevo frito con yema cremosa.",
+          "Una deliciosa combinación de medallón de carne, cheddar doble y un huevo frito con yema cremosa. ¡Incluye papas Mc Cain en el precio!",
         price: 8200,
         image: "/hamburguesas/44.jpg",
-        ingredients: ["Cheddar x2", "Medallón", "Huevo frito"],
+        ingredients: ["Cheddar x2", "Medallón", "Huevo frito", "Papas Mc Cain incluidas"],
         calories: 670,
         prepTime: "12-14 min",
         popular: false,
@@ -124,9 +115,9 @@ const menuCategories = [
         id: 5,
         name: "Oklahoma",
         description:
-          "Cheddar, pepinillos, cebolla a la plancha, kétchup y mostaza.",
+          "Cheddar, pepinillos, cebolla a la plancha, kétchup y mostaza. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Estilo tradicional con cheddar, pepinillos, cebolla a la plancha y los clásicos kétchup y mostaza.",
+          "Estilo tradicional con cheddar, pepinillos, cebolla a la plancha y los clásicos kétchup y mostaza. ¡Incluye papas Mc Cain en el precio!",
         price: 8000,
         image: "/hamburguesas/5.jpg",
         ingredients: [
@@ -135,6 +126,7 @@ const menuCategories = [
           "Cebolla a la plancha",
           "Kétchup",
           "Mostaza",
+          "Papas Mc Cain incluidas"
         ],
         calories: 610,
         prepTime: "12-15 min",
@@ -144,9 +136,9 @@ const menuCategories = [
       {
         id: 6,
         name: "Crispy Burger",
-        description: "Medallón, cheddar x2, lechuga, tomate y cebolla crispy.",
+        description: "Medallón, cheddar x2, lechuga, tomate y cebolla crispy. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Hamburguesa con medallón jugoso, doble cheddar, vegetales frescos y cebolla crispy para un toque crujiente.",
+          "Hamburguesa con medallón jugoso, doble cheddar, vegetales frescos y cebolla crispy para un toque crujiente. ¡Incluye papas Mc Cain en el precio!",
         price: 7900,
         image: "/hamburguesas/6.jpg",
         ingredients: [
@@ -155,6 +147,7 @@ const menuCategories = [
           "Lechuga",
           "Tomate",
           "Cebolla crispy",
+          "Papas Mc Cain incluidas"
         ],
         calories: 690,
         prepTime: "14-16 min",
@@ -165,9 +158,9 @@ const menuCategories = [
         id: 7,
         name: "Honey",
         description:
-          "Medallón, cheddar x3, pancetas caramelizadas, pan con manteca y miel.",
+          "Medallón, cheddar x3, pancetas caramelizadas, pan con manteca y miel. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Sabor dulce y salado con cheddar triple, panceta caramelizada, pan dorado en manteca y baño de miel.",
+          "Sabor dulce y salado con cheddar triple, panceta caramelizada, pan dorado en manteca y baño de miel. ¡Incluye papas Mc Cain en el precio!",
         price: 8500,
         image: "/hamburguesas/7.jpg",
         ingredients: [
@@ -176,6 +169,7 @@ const menuCategories = [
           "Panceta caramelizada",
           "Pan con manteca",
           "Miel",
+          "Papas Mc Cain incluidas"
         ],
         calories: 730,
         prepTime: "15-17 min",
@@ -186,9 +180,9 @@ const menuCategories = [
         id: 8,
         name: "Argentina Papaaa",
         description:
-          "Triple medallón, pan de queso, cebolla caramelizada, panceta, huevo y chimi casero.",
+          "Triple medallón, pan de queso, cebolla caramelizada, panceta, huevo y chimi casero. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "La más completa: triple carne, pan de queso, panceta, huevo frito, cebolla caramelizada y chimi casero. ¡Argentinísima!",
+          "La más completa: triple carne, pan de queso, panceta, huevo frito, cebolla caramelizada y chimi casero. ¡Argentinísima! ¡Incluye papas Mc Cain en el precio!",
         price: 11800,
         image: "/hamburguesas/88.jpg",
         ingredients: [
@@ -198,6 +192,7 @@ const menuCategories = [
           "Panceta",
           "Huevo frito",
           "Chimichurri casero",
+          "Papas Mc Cain incluidas"
         ],
         calories: 950,
         prepTime: "18-22 min",
@@ -215,9 +210,9 @@ const menuCategories = [
         id: 1,
         name: "Roky Common",
         description:
-          "Carne de lomo, lechuga, tomate, jamón, queso y mayonesa casera.",
+          "Carne de lomo, lechuga, tomate, jamón, queso y mayonesa casera. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Lomo tradicional con los clásicos ingredientes que no fallan: carne jugosa, vegetales frescos y condimentos caseros.",
+          "Lomo tradicional con los clásicos ingredientes que no fallan: carne jugosa, vegetales frescos y condimentos caseros. ¡Incluye papas Mc Cain en el precio!",
         price: 14500,
         image: "/lomos/1.jpg",
         ingredients: [
@@ -227,6 +222,7 @@ const menuCategories = [
           "Jamón",
           "Queso",
           "Mayonesa casera",
+          "Papas Mc Cain incluidas"
         ],
         calories: 780,
         prepTime: "15-18 min",
@@ -237,9 +233,9 @@ const menuCategories = [
         id: 2,
         name: "Big Roky Special",
         description:
-          "Carne de lomo, lechuga, tomate, jamón, queso, panceta, huevo y mayonesa casera.",
+          "Carne de lomo, lechuga, tomate, jamón, queso, panceta, huevo y mayonesa casera. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Versión especial del clásico lomo con agregado de panceta y huevo a la plancha, ideal para el gran apetito.",
+          "Versión especial del clásico lomo con agregado de panceta y huevo a la plancha, ideal para el gran apetito. ¡Incluye papas Mc Cain en el precio!",
         price: 16000,
         image: "/lomos/2.jpg",
         ingredients: [
@@ -251,6 +247,7 @@ const menuCategories = [
           "Panceta",
           "Huevo a la plancha",
           "Mayonesa casera",
+          "Papas Mc Cain incluidas"
         ],
         calories: 890,
         prepTime: "16-20 min",
@@ -268,9 +265,9 @@ const menuCategories = [
         id: 1,
         name: "Rokystar",
         description:
-          "Carne de lomo, lechuga, tomate, huevo a la plancha, jamón, queso y mayonesa casera.",
+          "Carne de lomo, lechuga, tomate, huevo a la plancha, jamón, queso y mayonesa casera. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Una pachata bien completa con carne de lomo, vegetales, huevo, jamón y queso. Todo potenciado con mayonesa casera.",
+          "Una pachata bien completa con carne de lomo, vegetales, huevo, jamón y queso. Todo potenciado con mayonesa casera. ¡Incluye papas Mc Cain en el precio!",
         price: 17500,
         image: "/pachata/1.jpg",
         ingredients: [
@@ -281,6 +278,7 @@ const menuCategories = [
           "Jamón",
           "Queso",
           "Mayonesa casera",
+          "Papas Mc Cain incluidas"
         ],
         calories: 920,
         prepTime: "16-20 min",
@@ -491,7 +489,9 @@ export default function MobileFriendlyBurgerMenu() {
                       fill
                       sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       className="object-cover"
-                      quality={90}
+                      quality={75}
+                      priority={false}
+                      loading="lazy"
                     />
                     {/* Precio - Posición consistente */}
                     <div className="absolute top-2 right-2 bg-white/90 px-2.5 py-1 rounded-full shadow border border-yellow-300">
