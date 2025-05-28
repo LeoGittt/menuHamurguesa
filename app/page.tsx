@@ -321,6 +321,7 @@ export default function MobileFriendlyBurgerMenu() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState(false);
+  const [isCartMinimized, setIsCartMinimized] = useState(false);
 
   // Estado para los selectores de tipo y cantidad
   const [selectedType, setSelectedType] = useState<{
@@ -421,42 +422,39 @@ export default function MobileFriendlyBurgerMenu() {
       }`}
     >
       {/* Header - Más elegante con sombras sutiles */}
-      <header className="sticky top-0 z-40 shadow-2xl backdrop-blur-lg bg-black/40">
-        {/* Imagen de fondo con overlay mejorado */}
+      <header className="sticky top-0 z-40 shadow-lg backdrop-blur-md bg-black/50">
+        {/* Imagen de fondo optimizada para móvil */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <img
             src="/j.jpg"
             alt="Hamburguesas artesanales"
-            className="w-full h-full object-cover object-center brightness-90"
+            className="w-full h-full object-cover object-center brightness-95"
+            loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-red-900/80 via-red-800/70 to-orange-700/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-900/80 to-orange-700/70"></div>
         </div>
 
-        <div className="container mx-auto px-4 py-3">
+        <div className="container mx-auto px-3 py-2">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              {/* Logo con transparencia y efecto sutil */}
-              <div className="w-12 h-12 flex items-center justify-center rounded-xl backdrop-blur-sm">
+            {/* Logo compacto */}
+            <div className="flex items-center space-x-2">
+              <div className="w-10 h-10 flex items-center justify-center rounded-lg">
                 <img
                   src="/logo.png"
                   alt="Logo Mr. Roky"
-                  className="w-10 h-10 object-contain drop-shadow-xl hover:scale-110 transition-transform duration-300"
+                  className="w-8 h-8 object-contain drop-shadow-md"
                 />
               </div>
 
-              {/* Título con gradiente mejorado */}
-              <div className="text-shadow-xl">
-                <h1 className="text-3xl font-extrabold text-white">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-yellow-300 animate-text">
-                    Mr. Roky
-                  </span>
-                  <span className="text-white/90 font-semibold">
-                    {" "}
-                    burger shop
+              {/* Título optimizado para móvil */}
+              <div>
+                <h1 className="text-xl font-bold text-white">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-yellow-300">
+                    Mr. Roky Burger Shop
                   </span>
                 </h1>
-                <p className="text-orange-50 text-xs font-medium font-mono tracking-widest mt-0.5">
-                  ✦ and more✦
+                <p className="text-orange-50 text-[0.65rem] font-medium tracking-wider mt-0.5">
+                  ✦ And more ✦
                 </p>
               </div>
             </div>
@@ -751,7 +749,7 @@ export default function MobileFriendlyBurgerMenu() {
       </Button>
 
       {/* Mini carrito flotante mejorado con shadcn/ui */}
-      {showCart && cart.length > 0 && (
+      {showCart && cart.length > 0 && !isCartMinimized && (
         <div className="fixed bottom-20 right-4 z-50 bg-white rounded-xl shadow-xl border-2 border-red-100 w-80 overflow-hidden animate-slide-up">
           {/* Encabezado del carrito */}
           <div className="bg-red-600 p-3 flex items-center justify-between">
@@ -759,9 +757,18 @@ export default function MobileFriendlyBurgerMenu() {
               <ShoppingCart className="w-5 h-5" />
               TU PEDIDO
             </h4>
-            <span className="bg-white text-red-600 text-xs font-bold px-2 py-1 rounded-full">
-              {cart.reduce((total, item) => total + item.quantity, 0)} ITEMS
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="bg-white text-red-600 text-xs font-bold px-2 py-1 rounded-full">
+                {cart.reduce((total, item) => total + item.quantity, 0)} ITEMS
+              </span>
+              <button
+                className="ml-1 p-1 rounded-full bg-white/80 hover:bg-gray-100 transition"
+                title="Minimizar carrito"
+                onClick={() => setIsCartMinimized(true)}
+              >
+                <Minus className="w-4 h-4 text-red-600" />
+              </button>
+            </div>
           </div>
 
           {/* Lista de productos */}
@@ -802,7 +809,7 @@ export default function MobileFriendlyBurgerMenu() {
           {/* Total y botón de acción */}
           <div className="border-t border-red-100 p-3 bg-white">
             <div className="flex justify-between items-center mb-3">
-              <span className="font-bold text-gray-800">TOTAL:</span>
+              <span className="font-bold font-mono text-gray-800">TOTAL:</span>
               <span className="font-bold text-red-600 text-lg">
                 $
                 {cart
@@ -815,10 +822,27 @@ export default function MobileFriendlyBurgerMenu() {
               onClick={sendCartToWhatsApp}
             >
               {/* <WhatsAppIcon className="w-5 h-5" /> */}
-              ENVIAR PEDIDO
+              ENVIAR PEDIDO POR WHATSAPP
             </Button>
           </div>
         </div>
+      )}
+
+      {/* Botón flotante para maximizar el carrito */}
+      {showCart && cart.length > 0 && isCartMinimized && (
+        <button
+          className="fixed bottom-20 right-4 z-50 flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-full shadow-lg border-2 border-red-200 transition-all"
+          onClick={() => setIsCartMinimized(false)}
+          title="Mostrar carrito"
+        >
+          <ShoppingCart className="w-5 h-5" />
+          <span>{cart.reduce((total, item) => total + item.quantity, 0)} items</span>
+          <span className="font-mono">
+            $
+            {cart.reduce((acc, i) => acc + i.price * i.quantity, 0).toLocaleString("es-AR")}
+          </span>
+          <Plus className="w-4 h-4" />
+        </button>
       )}
     </div>
   );
