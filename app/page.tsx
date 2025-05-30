@@ -339,6 +339,7 @@ export default function MobileFriendlyBurgerMenu() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState(false);
   const [isCartMinimized, setIsCartMinimized] = useState(false);
+  const [isHeaderSmall, setIsHeaderSmall] = useState(false);
 
   // Estado para los selectores de tipo y cantidad
   const [selectedType, setSelectedType] = useState<{
@@ -348,6 +349,14 @@ export default function MobileFriendlyBurgerMenu() {
 
   useEffect(() => {
     setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsHeaderSmall(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const openItemDetail = (item: MenuItem) => {
@@ -439,45 +448,58 @@ export default function MobileFriendlyBurgerMenu() {
       }`}
     >
       {/* Header - Más elegante con sombras sutiles */}
-      <header className="sticky top-0 z-40 shadow-lg bg-black/30 backdrop-blur-md py-3">
-        {/* Fondo con patrón de logos más visible */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="relative w-full h-full">
-            <div
-              className="absolute inset-0 bg-[url('/logo.png')] bg-[length:180px_180px] bg-center opacity-30"
-              style={{
-                filter: "blur(2px) brightness(1.1)",
-                maskImage:
-                  "linear-gradient(to bottom, transparent 5%, black 20%, black 80%, transparent 95%)",
-              }}
-            ></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60"></div>
-          </div>
-        </div>
-
+      <header
+        className={`sticky top-0 z-40 bg-gray-50 transition-all duration-75 ${
+          isHeaderSmall ? "py-1 shadow-md" : "py-3"
+        }`}
+      >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             {/* Logo principal */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
               <div className="relative">
-                {/* Contenedor principal del logo */}
-                <div className="flex items-center justify-center rounded-xl overflow-hidden w-24 h-24 md:w-28 md:h-28">
-                  {/* Logo con efectos de iluminación */}
+                {/* Contenedor principal del logo - tamaño dinámico */}
+                <div
+                  className={`flex items-center justify-center rounded-xl overflow-hidden transition-all duration-75 ${
+                    isHeaderSmall
+                      ? "w-20 h-20 md:w-24 md:h-24"
+                      : "w-40 h-40 md:w-48 md:h-48"
+                  }`}
+                >
+                  {/* Logo con efectos de iluminación - tamaño dinámico */}
                   <img
                     src="/logo.png"
                     alt="Logo Mr. Roky"
-                    className="w-20 h-20 md:w-24 md:h-24 object-contain drop-shadow-[0_4px_15px_rgba(250,180,50,0.6)]"
+                    className={`object-contain transition-all duration-75 ${
+                      isHeaderSmall
+                        ? "w-16 h-16 md:w-20 md:h-20"
+                        : "w-36 h-36 md:w-44 md:h-44"
+                    } drop-shadow-[0_4px_15px_rgba(120,120,120,0.35)]`}
                   />
                 </div>
               </div>
 
-              {/* Texto */}
+              {/* Texto con Cherry Bomb One */}
               <div className="text-center">
-                <h1 className="text-2xl md:text-3xl text-white font-sansita tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                <h1
+                  className={`text-black tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)] transition-all duration-75 ${
+                    isHeaderSmall
+                      ? "text-2xl md:text-3xl"
+                      : "text-4xl md:text-5xl"
+                  }`}
+                  style={{ fontFamily: '"Cherry Bomb One", cursive' }}
+                >
                   MR. ROKY
                 </h1>
                 <div className="relative inline-block">
-                  <p className="text-amber-100 text-sm md:text-base tracking-[0.25em] mt-1 font-sansita uppercase">
+                  <p
+                    className={`text-black tracking-[0.25em] mt-1 uppercase transition-all duration-75 ${
+                      isHeaderSmall
+                        ? "text-xs md:text-base"
+                        : "text-base md:text-lg"
+                    }`}
+                    style={{ fontFamily: '"Cherry Bomb One", cursive' }}
+                  >
                     BURGER SHOP
                   </p>
                   <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
@@ -495,7 +517,7 @@ export default function MobileFriendlyBurgerMenu() {
             {/* Encabezado de categoría - Centrado y consistente */}
             <div className="text-center mb-6">
               <div className="inline-block transform skew-x-[-12deg] bg-red-600 px-6 py-1 rounded-sm mb-2">
-                <h2 className="text-3xl font-black text-white font-sansita tracking-tighter transform skew-x-[12deg]">
+                <h2 className="text-3xl font-black text-white  tracking-tighter transform skew-x-[12deg]">
                   {category.name.toUpperCase()}
                 </h2>
               </div>
