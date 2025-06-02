@@ -449,11 +449,17 @@ export default function MobileFriendlyBurgerMenu() {
     >
       {/* Header - Más elegante con sombras sutiles */}
       <header
-        className={`sticky top-0 z-40 bg-gray-50 transition-all duration-75 ${
+        className={`sticky top-0 z-40 transition-all duration-75 relative overflow-hidden ${
           isHeaderSmall ? "py-1 shadow-md" : "py-3"
         }`}
       >
-        <div className="container mx-auto px-4">
+        {/* Fondo con imagen repetida y desenfoque */}
+        <div
+          className="absolute inset-0 bg-[url('/foto.jpg')] bg-repeat-x bg-[size:auto_100%] filter blur-sm"
+          style={{ zIndex: -1 }}
+        ></div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="flex items-center justify-between">
             {/* Logo principal */}
             <div className="flex items-center space-x-2">
@@ -484,9 +490,9 @@ export default function MobileFriendlyBurgerMenu() {
                 <h1
                   className={`text-black tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)] transition-all duration-75 ${
                     isHeaderSmall
-                      ? "text-2xl md:text-3xl"
-                      : "text-4xl md:text-5xl"
-                  }`}
+                      ? "text-xl md:text-2xl"
+                      : "text-3xl md:text-4xl"
+                  } text-shadow`}
                   style={{
                     fontFamily: '"Cherry Bomb One", cursive',
                     fontWeight: "normal",
@@ -498,8 +504,8 @@ export default function MobileFriendlyBurgerMenu() {
                     fontFeatureSettings: "normal",
                     fontVariationSettings: "normal",
                     letterSpacing: "normal",
-                    fontSize: "inherit",
                     lineHeight: "inherit",
+                    textShadow: '2px 2px 4px rgba(255, 255, 255, 0.5)',
                   }}
                 >
                   MR. ROKY
@@ -508,9 +514,9 @@ export default function MobileFriendlyBurgerMenu() {
                   <p
                     className={`text-black tracking-[0.25em] mt-1 uppercase transition-all duration-75 ${
                       isHeaderSmall
-                        ? "text-xs md:text-base"
-                        : "text-base md:text-lg"
-                    }`}
+                        ? "text-xs md:text-sm"
+                        : "text-sm md:text-base"
+                    } text-shadow`}
                     style={{
                       fontFamily: '"Cherry Bomb One", cursive',
                       fontWeight: "normal",
@@ -522,13 +528,13 @@ export default function MobileFriendlyBurgerMenu() {
                       fontFeatureSettings: "normal",
                       fontVariationSettings: "normal",
                       letterSpacing: "normal",
-                      fontSize: "inherit",
                       lineHeight: "inherit",
+                      textShadow: '1px 1px 2px rgba(255, 255, 255, 0.5)',
                     }}
                   >
                     BURGER SHOP
                   </p>
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-amber-400 to-transparent"></div>
                 </div>
               </div>
             </div>
