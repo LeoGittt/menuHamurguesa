@@ -487,7 +487,20 @@ export default function MobileFriendlyBurgerMenu() {
                       ? "text-2xl md:text-3xl"
                       : "text-4xl md:text-5xl"
                   }`}
-                  style={{ fontFamily: '"Cherry Bomb One", cursive' }}
+                  style={{
+                    fontFamily: '"Cherry Bomb One", cursive',
+                    fontWeight: "normal",
+                    fontStyle: "normal",
+                    WebkitFontSmoothing: "antialiased",
+                    MozOsxFontSmoothing: "grayscale",
+                    fontVariant: "normal",
+                    fontStretch: "normal",
+                    fontFeatureSettings: "normal",
+                    fontVariationSettings: "normal",
+                    letterSpacing: "normal",
+                    fontSize: "inherit",
+                    lineHeight: "inherit",
+                  }}
                 >
                   MR. ROKY
                 </h1>
@@ -498,7 +511,20 @@ export default function MobileFriendlyBurgerMenu() {
                         ? "text-xs md:text-base"
                         : "text-base md:text-lg"
                     }`}
-                    style={{ fontFamily: '"Cherry Bomb One", cursive' }}
+                    style={{
+                      fontFamily: '"Cherry Bomb One", cursive',
+                      fontWeight: "normal",
+                      fontStyle: "normal",
+                      WebkitFontSmoothing: "antialiased",
+                      MozOsxFontSmoothing: "grayscale",
+                      fontVariant: "normal",
+                      fontStretch: "normal",
+                      fontFeatureSettings: "normal",
+                      fontVariationSettings: "normal",
+                      letterSpacing: "normal",
+                      fontSize: "inherit",
+                      lineHeight: "inherit",
+                    }}
                   >
                     BURGER SHOP
                   </p>
