@@ -636,15 +636,14 @@ export default function MobileFriendlyBurgerMenu() {
             </div>
           </div>
         </div>{" "}
-      </header>{" "}
-      {/* Banner de Envíos a Domicilio */}
+      </header>{" "}      {/* Banner de Envíos a Domicilio */}
       <div className="bg-red-600 backdrop-blur-sm border-b border-blue-400/20">
-        <div className="container mx-auto px-4 py-2">
-          <div className="flex items-center justify-center gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm">
+        <div className="container mx-auto px-2 md:px-4 py-1.5 md:py-2">
+          <div className="flex items-center justify-center gap-1 md:gap-3">
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-4 h-4 md:w-6 md:h-6 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <svg
-                  className="w-3.5 h-3.5 text-white"
+                  className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -657,19 +656,19 @@ export default function MobileFriendlyBurgerMenu() {
                   />
                 </svg>
               </div>
-              <span className="text-white font-semibold text-sm tracking-wide">
+              <span className="text-white font-semibold text-xs md:text-sm tracking-wide">
                 Envíos a domicilio
               </span>
             </div>{" "}
-            <div className="w-px h-4 bg-white/30"></div>
-            <span className="text-white/85 text-xs font-medium">
+            <div className="w-px h-3 md:h-4 bg-white/30"></div>
+            <span className="text-white/85 text-xs font-medium hidden sm:inline">
               Consultá precio por zona
             </span>
-            <div className="w-px h-4 bg-white/30"></div>
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm">
+            <div className="w-px h-3 md:h-4 bg-white/30 hidden sm:block"></div>
+            <div className="flex items-center gap-0.5 md:gap-1">
+              <div className="w-3 h-3 md:w-4 md:h-4 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <svg
-                  className="w-2.5 h-2.5 text-white"
+                  className="w-2 h-2 md:w-2.5 md:h-2.5 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
