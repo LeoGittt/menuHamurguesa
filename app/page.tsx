@@ -407,7 +407,6 @@ export default function MobileFriendlyBurgerMenu() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState(false);
   const [isCartMinimized, setIsCartMinimized] = useState(false);
-  const [isHeaderSmall, setIsHeaderSmall] = useState(false);
 
   // Estado para los selectores de tipo y cantidad
   const [selectedType, setSelectedType] = useState<{
@@ -417,14 +416,6 @@ export default function MobileFriendlyBurgerMenu() {
 
   useEffect(() => {
     setIsVisible(true);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsHeaderSmall(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const openItemDetail = (item: MenuItem) => {
     setSelectedItem(item);
@@ -541,40 +532,22 @@ export default function MobileFriendlyBurgerMenu() {
       className={`min-h-screen bg-gradient-to-br bg-gray-50 transition-opacity duration-500 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
-    >
-      {/* Header - Más elegante con sombras sutiles */}{" "}
-      <header
-        className={`sticky top-0 z-40 transition-all duration-75 overflow-hidden ${
-          isHeaderSmall ? "py-1 shadow-md" : "py-3"
-        }`}
-      >
+    >      {/* Header - Más elegante con sombras sutiles */}{" "}      <header className="sticky top-0 z-40 py-2 md:py-3 overflow-hidden">
         {/* Fondo con imagen repetida y desenfoque */}
         <div
           className="absolute inset-0 bg-[url('/foto.jpg')] bg-repeat-x bg-[size:auto_100%] filter blur-sm"
           style={{ zIndex: -1 }}
-        ></div>{" "}
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex items-center justify-between">
+        ></div>{" "}        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex items-center justify-center md:justify-between">
             {/* Logo principal */}
-            <div className="flex items-center space-x-2">
-              <div className="relative">
-                {/* Contenedor principal del logo - tamaño dinámico */}
-                <div
-                  className={`flex items-center justify-center rounded-xl overflow-hidden transition-all duration-75 ${
-                    isHeaderSmall
-                      ? "w-20 h-20 md:w-24 md:h-24"
-                      : "w-40 h-40 md:w-48 md:h-48"
-                  }`}
-                >
-                  {/* Logo con efectos de iluminación - tamaño dinámico */}
+            <div className="flex items-center space-x-2">              <div className="relative">
+                {/* Contenedor principal del logo */}
+                <div className="flex items-center justify-center rounded-xl overflow-hidden w-24 h-24 md:w-48 md:h-48">
+                  {/* Logo con efectos de iluminación */}
                   <img
                     src="/logo.png"
                     alt="Logo Mr. Roky"
-                    className={`object-contain transition-all duration-75 ${
-                      isHeaderSmall
-                        ? "w-16 h-16 md:w-20 md:h-20"
-                        : "w-36 h-36 md:w-44 md:h-44"
-                    } drop-shadow-[0_4px_15px_rgba(120,120,120,0.35)]`}
+                    className="object-contain w-20 h-20 md:w-44 md:h-44 drop-shadow-[0_4px_15px_rgba(120,120,120,0.35)]"
                   />
                 </div>
               </div>
@@ -582,11 +555,7 @@ export default function MobileFriendlyBurgerMenu() {
               {/* Texto con Cherry Bomb One */}
               <div className="text-center">
                 <h1
-                  className={`text-black tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)] transition-all duration-75 ${
-                    isHeaderSmall
-                      ? "text-xl md:text-2xl"
-                      : "text-3xl md:text-4xl"
-                  } text-shadow`}
+                  className="text-black tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)] text-xl md:text-4xl text-shadow"
                   style={{
                     fontFamily: '"Cherry Bomb One", cursive',
                     fontWeight: "normal",
@@ -606,11 +575,7 @@ export default function MobileFriendlyBurgerMenu() {
                 </h1>
                 <div className="relative inline-block">
                   <p
-                    className={`text-black tracking-[0.25em] mt-1 uppercase transition-all duration-75 ${
-                      isHeaderSmall
-                        ? "text-xs md:text-sm"
-                        : "text-sm md:text-base"
-                    } text-shadow`}
+                    className="text-black tracking-[0.25em] mt-1 uppercase text-xs md:text-base text-shadow"
                     style={{
                       fontFamily: '"Cherry Bomb One", cursive',
                       fontWeight: "normal",
@@ -636,7 +601,7 @@ export default function MobileFriendlyBurgerMenu() {
             </div>
           </div>
         </div>{" "}
-      </header>{" "}      {/* Banner de Envíos a Domicilio */}
+      </header>{" "}{/* Banner de Envíos a Domicilio */}
       <div className="bg-red-600 backdrop-blur-sm border-b border-blue-400/20">
         <div className="container mx-auto px-2 md:px-4 py-1.5 md:py-2">
           <div className="flex items-center justify-center gap-1 md:gap-3">
