@@ -519,10 +519,9 @@ export default function MobileFriendlyBurgerMenu() {
           item.price * item.quantity
         ).toLocaleString("es-AR")}` + "\n";
     });
-    const total = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
-    message += `\nTotal: $${total.toLocaleString("es-AR")}`;
+    const total = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);    message += `\nTotal: $${total.toLocaleString("es-AR")}`;
     window.open(
-      `https://wa.me/5492645648445?text=${encodeURIComponent(message)}`,
+      `https://wa.me/?text=${encodeURIComponent(message)}`,
       "_blank"
     );
   };
@@ -647,7 +646,7 @@ export default function MobileFriendlyBurgerMenu() {
                 </svg>
               </div>
               <span className="text-white/85 text-xs font-medium">
-                54 9 2645 64-8445
+                
               </span>
             </div>
           </div>
@@ -963,10 +962,9 @@ export default function MobileFriendlyBurgerMenu() {
       </Dialog>
       {/* WhatsApp Floating Button - Con animación */}
       <Button
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-red-600 via-red-500 to-yellow-400 hover:from-red-700 hover:to-yellow-500 shadow-2xl hover:shadow-red-500/50 transform hover:scale-110 transition-all duration-300 animate-bounce hover:animate-none border-4 border-white"
-        onClick={() =>
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-red-600 via-red-500 to-yellow-400 hover:from-red-700 hover:to-yellow-500 shadow-2xl hover:shadow-red-500/50 transform hover:scale-110 transition-all duration-300 animate-bounce hover:animate-none border-4 border-white"        onClick={() =>
           window.open(
-            "https://wa.me/5492645648445?text=Hola, me gustaría hacer una consulta sobre el menú",
+            "https://wa.me/?text=Hola, me gustaría hacer una consulta sobre el menú",
             "_blank"
           )
         }
@@ -1121,13 +1119,12 @@ export default function MobileFriendlyBurgerMenu() {
                     <div className="flex flex-col">
                       <span className="font-medium">Ver número</span>
                       <span className="text-sm text-gray-500">
-                        54 9 2645 64-8445
+                        
                       </span>
                     </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
+                  </DropdownMenuItem>                  <DropdownMenuItem asChild>
                     <a
-                      href="https://wa.me/5492645648445"
+                      href="https://wa.me/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 p-3"
