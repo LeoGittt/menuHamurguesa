@@ -1143,7 +1143,7 @@ export default function MobileFriendlyBurgerMenu() {
             {/* Información adicional */}
             <div className="text-center text-gray-400 text-sm space-y-2">
               <p>📍 Ubicación: [Tu dirección aquí]</p>
-              <p>🕒 Horarios: Lun-Dom 18:00 - 00:00</p>
+              <p>🕒 Horarios: Mar-Dom 18:00 - 00:00</p>
               <div className="border-t border-gray-700 pt-4 mt-4">
                 <p>
                   &copy; 2024 Mr. Roky Burger Shop. Todos los derechos
