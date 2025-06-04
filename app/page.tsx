@@ -37,6 +37,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 
 const menuCategories = [
@@ -47,17 +53,18 @@ const menuCategories = [
     items: [
       {
         id: 1,
-        name: "Bacon Cheeseburger",
+        name: "Stacker Burger",
         description:
-          "Cheddar x2, medallón y panceta ahumada. ¡Incluye papas Mc Cain en el precio!",
+          "Doble medallón, cheddar x2, bacon y salsa stacker. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
-          "Hamburguesa con doble cheddar, medallón de carne y panceta ahumada. Una combinación clásica e irresistible. ¡Incluye papas Mc Cain en el precio!",
-        price: 8600,
+          "Hamburguesa con doble medallón de carne, cheddar x2, bacon crujiente y nuestra exclusiva salsa stacker. Una combinación explosiva de sabores. ¡Incluye papas Mc Cain en el precio!",
+        price: 8500,
         image: "/hamburguesas/1.jpg",
         ingredients: [
+          "Doble medallón",
           "Cheddar x2",
-          "Medallón",
-          "Panceta ahumada",
+          "Bacon",
+          "Salsa stacker",
           "Papas Mc Cain incluidas",
         ],
         calories: 650,
@@ -67,51 +74,59 @@ const menuCategories = [
       },
       {
         id: 2,
-        name: "American Cheese Burger",
+        name: "Bacon Burger",
         description:
           "Tomate, cheddar, lechuga y salsa tosty casera. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Una hamburguesa con sabor americano: tomate fresco, cheddar fundido, lechuga crocante y nuestra salsa tosty casera. ¡Incluye papas Mc Cain en el precio!",
-        price: 8400,
+        price: 8600,
         image: "/hamburguesas/2.jpg",
         ingredients: [
-          "Tomate",
-          "Cheddar",
-          "Lechuga",
-          "Salsa tosty casera",
+          "Medallones",
+          "Panceta x2",
+          "Cheddar x3",
+          "Salsa Thousand island",
           "Papas Mc Cain incluidas",
         ],
         calories: 620,
         prepTime: "12-15 min",
         popular: false,
         chef: false,
+        sizeOptions: {
+          doble: 8600,
+          triple: 9600,
+        },
       },
       {
         id: 3,
-        name: "Big Roky",
+        name: "Classic Roky",
         description:
           "Doble carne, cheddar x3, pepinillos, lechuga, cebolla y salsa HR. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Potente hamburguesa con doble medallón, triple cheddar, pepinillos caseros, lechuga, cebolla salteada y salsa HR casera. ¡Incluye papas Mc Cain en el precio!",
-        price: 9200,
+        price: 7700,
         image: "/hamburguesas/3.jpg",
         ingredients: [
-          "Doble carne",
-          "Cheddar x3",
-          "Pepinillos",
+          "Medallones",
+          "Cheddar x2",
+          "Cebolla morada",
           "Lechuga",
-          "Cebolla",
-          "Salsa HR",
+          "Tomate",
+          "Salsa alioli ",
           "Papas Mc Cain incluidas",
         ],
         calories: 780,
         prepTime: "15-18 min",
         popular: true,
         chef: true,
+        sizeOptions: {
+          simple: 7700,
+          doble: 8700,
+        },
       },
       {
         id: 4,
-        name: "Fried Egg",
+        name: "Cheese Burger",
         description:
           "Cheddar x2, medallón y huevo frito. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
@@ -119,75 +134,95 @@ const menuCategories = [
         price: 8200,
         image: "/hamburguesas/44.jpg",
         ingredients: [
+          "Medallones",
           "Cheddar x2",
-          "Medallón",
-          "Huevo frito",
+          "Cebolla Morada",
+          "Lechuga",
+          "tomate",
+          "Salsa alioli",
           "Papas Mc Cain incluidas",
         ],
         calories: 670,
         prepTime: "12-14 min",
         popular: false,
         chef: false,
+        sizeOptions: {
+          doble: 8200,
+          triple: 9200,
+        },
       },
       {
         id: 5,
-        name: "Oklahoma",
+        name: "Roky Crispy",
         description:
           "Cheddar, pepinillos, cebolla a la plancha, kétchup y mostaza. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Estilo tradicional con cheddar, pepinillos, cebolla a la plancha y los clásicos kétchup y mostaza. ¡Incluye papas Mc Cain en el precio!",
-        price: 8000,
+        price: 7800,
         image: "/hamburguesas/5.jpg",
         ingredients: [
-          "Cheddar",
-          "Pepinillos",
-          "Cebolla a la plancha",
+          "Medallon",
+          "Cheddar x3",
+          "Cebolla blanca a la plancha",
           "Kétchup",
           "Mostaza",
+          "Pepino casero",
           "Papas Mc Cain incluidas",
         ],
         calories: 610,
         prepTime: "12-15 min",
         popular: false,
         chef: false,
+        sizeOptions: {
+          simple: 7800,
+          doble: 8500,
+        },
       },
       {
         id: 6,
-        name: "Crispy Burger",
+        name: "Oklahoma",
         description:
           "Medallón, cheddar x2, lechuga, tomate y cebolla crispy. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Hamburguesa con medallón jugoso, doble cheddar, vegetales frescos y cebolla crispy para un toque crujiente. ¡Incluye papas Mc Cain en el precio!",
-        price: 7900,
+        price: 7800,
         image: "/hamburguesas/6.jpg",
         ingredients: [
           "Medallón",
-          "Cheddar x2",
-          "Lechuga",
-          "Tomate",
-          "Cebolla crispy",
+          "Cheddar x3",
+          "Ketchup",
+          "Mostaza",
+          "Pepino casero",
+          "Cebolla blanca a la plancha",
           "Papas Mc Cain incluidas",
         ],
         calories: 690,
         prepTime: "14-16 min",
         popular: true,
         chef: false,
+        sizeOptions: {
+          simple: 7800,
+          doble: 8500,
+        },
       },
       {
         id: 7,
-        name: "Honey",
+        name: "Roky Balboa",
         description:
           "Medallón, cheddar x3, pancetas caramelizadas, pan con manteca y miel. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "Sabor dulce y salado con cheddar triple, panceta caramelizada, pan dorado en manteca y baño de miel. ¡Incluye papas Mc Cain en el precio!",
-        price: 8500,
+        price: 9400,
         image: "/hamburguesas/7.jpg",
         ingredients: [
-          "Medallón",
-          "Cheddar x3",
-          "Panceta caramelizada",
-          "Pan con manteca",
-          "Miel",
+          "3 Medallones",
+          "Pepinos Alemanes",
+          "Mayo casera",
+          "Mostaza",
+          "Ketchup",
+          "Cheddar x4",
+          "Huevo frito",
+          "Cebolla caramelizada",
           "Papas Mc Cain incluidas",
         ],
         calories: 730,
@@ -197,26 +232,54 @@ const menuCategories = [
       },
       {
         id: 8,
-        name: "Argentina Papaaa",
+        name: "Hamburger Sticks",
         description:
           "Triple medallón, pan de queso, cebolla caramelizada, panceta, huevo y chimi casero. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
           "La más completa: triple carne, pan de queso, panceta, huevo frito, cebolla caramelizada y chimi casero. ¡Argentinísima! ¡Incluye papas Mc Cain en el precio!",
-        price: 11800,
+        price: 8600,
         image: "/hamburguesas/88.jpg",
         ingredients: [
-          "Triple medallón",
-          "Pan de queso",
-          "Cebolla caramelizada",
+          "medallón",
+          "Cheddar x3",
+          "Barbacoa",
           "Panceta",
-          "Huevo frito",
-          "Chimichurri casero",
+          "Bastones de muzzarella",
           "Papas Mc Cain incluidas",
         ],
         calories: 950,
         prepTime: "18-22 min",
         popular: true,
         chef: true,
+        sizeOptions: {
+          simple: 8600,
+          doble: 9300,
+        },
+      },
+      {
+        id: 9,
+        name: "Butter Bread",
+        description:
+          "Triple medallón, pan de queso, cebolla caramelizada, panceta, huevo y chimi casero. ¡Incluye papas Mc Cain en el precio!",
+        fullDescription:
+          "La más completa: triple carne, pan de queso, panceta, huevo frito, cebolla caramelizada y chimi casero. ¡Argentinísima! ¡Incluye papas Mc Cain en el precio!",
+        price: 7900,
+        image: "/hamburguesas/88.jpg",
+        ingredients: [
+          "medallón",
+          "Cheddar x3",
+          "Cebolla morada caramelizada",
+          "Manteca en pan tostado",
+          "Papas Mc Cain incluidas",
+        ],
+        calories: 950,
+        prepTime: "18-22 min",
+        popular: true,
+        chef: true,
+        sizeOptions: {
+          simple: 7900,
+          doble: 8800,
+        },
       },
     ],
   },
@@ -321,6 +384,11 @@ interface MenuItem {
   ingredients: string[];
   calories: number;
   prepTime: string;
+  sizeOptions?: {
+    simple?: number;
+    doble?: number;
+    triple?: number;
+  };
 }
 
 // Tipos para el carrito
@@ -358,9 +426,27 @@ export default function MobileFriendlyBurgerMenu() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   const openItemDetail = (item: MenuItem) => {
     setSelectedItem(item);
+
+    // Establecer tipo por defecto basado en las opciones disponibles
+    if (item.sizeOptions) {
+      const availableSize = item.sizeOptions.simple
+        ? "simple"
+        : item.sizeOptions.doble
+        ? "doble"
+        : "triple";
+      setSelectedType((prev) => ({
+        ...prev,
+        [item.id]: availableSize,
+      }));
+    } else {
+      setSelectedType((prev) => ({
+        ...prev,
+        [item.id]: "simple",
+      }));
+    }
+
     setIsModalOpen(true);
   };
 
@@ -383,7 +469,6 @@ export default function MobileFriendlyBurgerMenu() {
       "_blank"
     );
   };
-
   // Añadir al carrito
   const addToCart = (
     item: MenuItem,
@@ -399,6 +484,21 @@ export default function MobileFriendlyBurgerMenu() {
             : i
         );
       }
+
+      // Calcular precio basado en sizeOptions si están disponibles
+      let itemPrice = item.price;
+      if (item.sizeOptions && item.sizeOptions[type]) {
+        itemPrice = item.sizeOptions[type];
+      } else {
+        // Fallback al sistema anterior de multiplicadores
+        itemPrice =
+          type === "doble"
+            ? item.price * 1.7
+            : type === "triple"
+            ? item.price * 2.3
+            : item.price;
+      }
+
       return [
         ...prev,
         {
@@ -406,12 +506,7 @@ export default function MobileFriendlyBurgerMenu() {
           name: item.name,
           type,
           quantity,
-          price:
-            type === "doble"
-              ? item.price * 1.7
-              : type === "triple"
-              ? item.price * 2.3
-              : item.price,
+          price: itemPrice,
         },
       ];
     });
@@ -447,9 +542,9 @@ export default function MobileFriendlyBurgerMenu() {
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
-      {/* Header - Más elegante con sombras sutiles */}
+      {/* Header - Más elegante con sombras sutiles */}{" "}
       <header
-        className={`sticky top-0 z-40 transition-all duration-75 relative overflow-hidden ${
+        className={`sticky top-0 z-40 transition-all duration-75 overflow-hidden ${
           isHeaderSmall ? "py-1 shadow-md" : "py-3"
         }`}
       >
@@ -457,8 +552,7 @@ export default function MobileFriendlyBurgerMenu() {
         <div
           className="absolute inset-0 bg-[url('/foto.jpg')] bg-repeat-x bg-[size:auto_100%] filter blur-sm"
           style={{ zIndex: -1 }}
-        ></div>
-
+        ></div>{" "}
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex items-center justify-between">
             {/* Logo principal */}
@@ -505,7 +599,7 @@ export default function MobileFriendlyBurgerMenu() {
                     fontVariationSettings: "normal",
                     letterSpacing: "normal",
                     lineHeight: "inherit",
-                    textShadow: '2px 2px 4px rgba(255, 255, 255, 0.5)',
+                    textShadow: "2px 2px 4px rgba(255, 255, 255, 0.5)",
                   }}
                 >
                   MR. ROKY
@@ -529,19 +623,72 @@ export default function MobileFriendlyBurgerMenu() {
                       fontVariationSettings: "normal",
                       letterSpacing: "normal",
                       lineHeight: "inherit",
-                      textShadow: '1px 1px 2px rgba(255, 255, 255, 0.5)',
+                      textShadow: "1px 1px 2px rgba(255, 255, 255, 0.5)",
                     }}
                   >
                     BURGER SHOP
                   </p>
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-amber-400 to-transparent"></div>
-                </div>
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-amber-400 to-transparent">
+                    {" "}
+                  </div>
+                </div>{" "}
               </div>
             </div>
           </div>
+        </div>{" "}
+      </header>{" "}
+      {/* Banner de Envíos a Domicilio */}
+      <div className="bg-red-600 backdrop-blur-sm border-b border-blue-400/20">
+        <div className="container mx-auto px-4 py-2">
+          <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <svg
+                  className="w-3.5 h-3.5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-5.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H1"
+                  />
+                </svg>
+              </div>
+              <span className="text-white font-semibold text-sm tracking-wide">
+                Envíos a domicilio
+              </span>
+            </div>{" "}
+            <div className="w-px h-4 bg-white/30"></div>
+            <span className="text-white/85 text-xs font-medium">
+              Consultá precio por zona
+            </span>
+            <div className="w-px h-4 bg-white/30"></div>
+            <div className="flex items-center gap-1">
+              <div className="w-4 h-4 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <svg
+                  className="w-2.5 h-2.5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+              </div>
+              <span className="text-white/85 text-xs font-medium">
+                54 9 2645 64-8445
+              </span>
+            </div>
+          </div>
         </div>
-      </header>
-
+      </div>
       {/* Menu Sections - Con mejor espaciado y jerarquía */}
       <main className="container mx-auto px-4 py-6">
         {menuCategories.map((category) => (
@@ -617,7 +764,6 @@ export default function MobileFriendlyBurgerMenu() {
           </section>
         ))}
       </main>
-
       {/* Modal de Detalle del Producto - Más elegante */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-xs w-[85vw] max-h-[80dvh] rounded-xl p-0 border-0">
@@ -664,7 +810,6 @@ export default function MobileFriendlyBurgerMenu() {
                     {selectedItem.description}
                   </p>
                 </div>
-
                 {/* Ingredientes */}
                 <div>
                   <h3 className="text-xs font-medium text-gray-500 mb-2 font-sansita">
@@ -680,62 +825,86 @@ export default function MobileFriendlyBurgerMenu() {
                       </span>
                     ))}
                   </div>
-                </div>
-
+                </div>{" "}
                 {/* Selectores */}
                 <div className="space-y-3">
-                  <div>
-                    <h3 className="text-xs font-medium text-gray-500 mb-1.5 font-sansita">
-                      Tipo
-                    </h3>
-                    <div className="grid grid-cols-3 gap-2">
-                      <button
-                        onClick={() =>
-                          setSelectedType({
-                            ...selectedType,
-                            [selectedItem.id]: "simple",
-                          })
-                        }
-                        className={`py-1.5 text-xs rounded-md transition-colors ${
-                          selectedType[selectedItem.id] === "simple"
-                            ? "bg-red-600 text-white"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  {selectedItem.sizeOptions && (
+                    <div>
+                      <h3 className="text-xs font-medium text-gray-500 mb-1.5 font-sansita">
+                        Tipo
+                      </h3>
+                      <div
+                        className={`grid gap-2 ${
+                          Object.keys(selectedItem.sizeOptions).length === 1
+                            ? "grid-cols-1"
+                            : Object.keys(selectedItem.sizeOptions).length === 2
+                            ? "grid-cols-2"
+                            : "grid-cols-3"
                         }`}
                       >
-                        Simple
-                      </button>
-                      <button
-                        onClick={() =>
-                          setSelectedType({
-                            ...selectedType,
-                            [selectedItem.id]: "doble",
-                          })
-                        }
-                        className={`py-1.5 text-xs rounded-md transition-colors ${
-                          selectedType[selectedItem.id] === "doble"
-                            ? "bg-red-600 text-white"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        Doble
-                      </button>
-                      <button
-                        onClick={() =>
-                          setSelectedType({
-                            ...selectedType,
-                            [selectedItem.id]: "triple",
-                          })
-                        }
-                        className={`py-1.5 text-xs rounded-md transition-colors ${
-                          selectedType[selectedItem.id] === "triple"
-                            ? "bg-red-600 text-white"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        Triple
-                      </button>
+                        {selectedItem.sizeOptions.simple && (
+                          <button
+                            onClick={() =>
+                              setSelectedType({
+                                ...selectedType,
+                                [selectedItem.id]: "simple",
+                              })
+                            }
+                            className={`py-1.5 text-xs rounded-md transition-colors ${
+                              selectedType[selectedItem.id] === "simple"
+                                ? "bg-red-600 text-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            Simple - $
+                            {selectedItem.sizeOptions.simple.toLocaleString(
+                              "es-AR"
+                            )}
+                          </button>
+                        )}
+                        {selectedItem.sizeOptions.doble && (
+                          <button
+                            onClick={() =>
+                              setSelectedType({
+                                ...selectedType,
+                                [selectedItem.id]: "doble",
+                              })
+                            }
+                            className={`py-1.5 text-xs rounded-md transition-colors ${
+                              selectedType[selectedItem.id] === "doble"
+                                ? "bg-red-600 text-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            Doble - $
+                            {selectedItem.sizeOptions.doble.toLocaleString(
+                              "es-AR"
+                            )}
+                          </button>
+                        )}
+                        {selectedItem.sizeOptions.triple && (
+                          <button
+                            onClick={() =>
+                              setSelectedType({
+                                ...selectedType,
+                                [selectedItem.id]: "triple",
+                              })
+                            }
+                            className={`py-1.5 text-xs rounded-md transition-colors ${
+                              selectedType[selectedItem.id] === "triple"
+                                ? "bg-red-600 text-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            Triple - $
+                            {selectedItem.sizeOptions.triple.toLocaleString(
+                              "es-AR"
+                            )}
+                          </button>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div>
                     <h3 className="text-xs font-medium text-gray-500 mb-1.5 font-sansita">
@@ -794,21 +963,33 @@ export default function MobileFriendlyBurgerMenu() {
                   <div className="flex items-center gap-1.5">
                     <ShoppingCart className="w-3.5 h-3.5" />
                     <span className="font-semibold font-mono">Agregar</span>
-                  </div>
+                  </div>{" "}
                   <span className="text-xs font-semibold font-mono bg-white/10 px-2 py-0.5 rounded">
-                    {(
-                      selectedItem.price *
-                      (selectedQty[selectedItem.id] || 1) *
-                      (selectedType[selectedItem.id] === "doble"
-                        ? 1.2
-                        : selectedType[selectedItem.id] === "triple"
-                        ? 1.35
-                        : 1)
-                    ).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                      maximumFractionDigits: 0,
-                    })}
+                    {(() => {
+                      const selectedSize =
+                        selectedType[selectedItem.id] ||
+                        (selectedItem.sizeOptions?.simple
+                          ? "simple"
+                          : selectedItem.sizeOptions?.doble
+                          ? "doble"
+                          : "triple");
+
+                      let itemPrice = selectedItem.price;
+                      if (
+                        selectedItem.sizeOptions &&
+                        selectedItem.sizeOptions[selectedSize]
+                      ) {
+                        itemPrice = selectedItem.sizeOptions[selectedSize];
+                      }
+
+                      return (
+                        itemPrice * (selectedQty[selectedItem.id] || 1)
+                      ).toLocaleString("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                        maximumFractionDigits: 0,
+                      });
+                    })()}
                   </span>
                 </button>
               </div>
@@ -816,7 +997,6 @@ export default function MobileFriendlyBurgerMenu() {
           )}
         </DialogContent>
       </Dialog>
-
       {/* WhatsApp Floating Button - Con animación */}
       <Button
         className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-red-600 via-red-500 to-yellow-400 hover:from-red-700 hover:to-yellow-500 shadow-2xl hover:shadow-red-500/50 transform hover:scale-110 transition-all duration-300 animate-bounce hover:animate-none border-4 border-white"
@@ -829,7 +1009,6 @@ export default function MobileFriendlyBurgerMenu() {
       >
         <MessageCircle className="w-7 h-7 text-white" />
       </Button>
-
       {/* Mini carrito flotante mejorado con shadcn/ui */}
       {showCart && cart.length > 0 && !isCartMinimized && (
         <div className="fixed bottom-20 right-4 z-50 bg-white rounded-xl shadow-xl border-2 border-red-100 w-80 overflow-hidden animate-slide-up">
@@ -909,7 +1088,6 @@ export default function MobileFriendlyBurgerMenu() {
           </div>
         </div>
       )}
-
       {/* Botón flotante para maximizar el carrito */}
       {showCart && cart.length > 0 && isCartMinimized && (
         <button
@@ -926,10 +1104,92 @@ export default function MobileFriendlyBurgerMenu() {
             {cart
               .reduce((acc, i) => acc + i.price * i.quantity, 0)
               .toLocaleString("es-AR")}
-          </span>
+          </span>{" "}
           <Plus className="w-4 h-4" />
         </button>
       )}
+      {/* Footer con información de contacto */}
+      <footer className="bg-gray-900 text-white py-8 mt-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center space-y-6">
+            {/* Logo y título */}
+            <div className="flex flex-col items-center space-y-2">
+              <img
+                src="/logo.png"
+                alt="Logo Mr. Roky"
+                className="w-16 h-16 object-contain"
+              />
+              <h3
+                className="text-2xl font-bold text-white"
+                style={{ fontFamily: '"Cherry Bomb One", cursive' }}
+              >
+                MR. ROKY
+              </h3>
+              <p
+                className="text-gray-300 text-sm tracking-wider"
+                style={{ fontFamily: '"Cherry Bomb One", cursive' }}
+              >
+                BURGER SHOP
+              </p>
+            </div>
+
+            {/* Botón de contacto principal */}
+            <div className="flex justify-center">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white border-green-500 px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 text-base font-semibold"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    <span>Contacto</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="center" className="w-60">
+                  <DropdownMenuItem
+                    onClick={() => {
+                      navigator.clipboard.writeText("54 9 2645 64-8445");
+                      // Opcional: Mostrar un toast de confirmación
+                    }}
+                    className="flex items-center gap-3 p-3"
+                  >
+                    <Phone className="w-5 h-5" />
+                    <div className="flex flex-col">
+                      <span className="font-medium">Ver número</span>
+                      <span className="text-sm text-gray-500">
+                        54 9 2645 64-8445
+                      </span>
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a
+                      href="https://wa.me/5492645648445"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      <span className="font-medium">Enviar WhatsApp</span>
+                    </a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Información adicional */}
+            <div className="text-center text-gray-400 text-sm space-y-2">
+              <p>📍 Ubicación: [Tu dirección aquí]</p>
+              <p>🕒 Horarios: Lun-Dom 18:00 - 00:00</p>
+              <div className="border-t border-gray-700 pt-4 mt-4">
+                <p>
+                  &copy; 2024 Mr. Roky Burger Shop. Todos los derechos
+                  reservados.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
