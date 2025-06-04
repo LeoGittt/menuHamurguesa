@@ -207,7 +207,7 @@ const menuCategories = [
       },
       {
         id: 7,
-        name: "Roky Balboa",
+        name: "La Roky Balboa",
         description:
           "Medallón, cheddar x3, pancetas caramelizadas, pan con manteca y miel. ¡Incluye papas Mc Cain en el precio!",
         fullDescription:
@@ -221,7 +221,7 @@ const menuCategories = [
           "Mostaza",
           "Ketchup",
           "Cheddar x4",
-          "Huevo frito",
+          "Huevo frito a eleccion",
           "Cebolla caramelizada",
           "Papas Mc Cain incluidas",
         ],
